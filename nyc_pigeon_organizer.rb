@@ -1,32 +1,26 @@
 def nyc_pigeon_organizer(data)
-  male_birds = data[:gender][:male]
-  female_birds = data[:gender][:female]
-  p  pigeons = male_birds|female_birds
-  pigeon_details = pigeons.to_h do |bird|
-    [bird, {:color => ["unknown color"],
-          :gender => ["unknown gender"],
-          :lives => ["unknown lives"]}]
+  new_hash = {}
+  data.each do |key, value|
+    p "key #{key}"
+    p "value #{value}"
+    value.each do |new_value, names|
+      p "value #{new_value}"
+      p "array sub set #{names}"
+      exit
+      names.each do |name|
+        if !new_hash[name]
+          new_hash[name] = {}
         end
-  #p pigeon_colors = data.fetch_values(:color)[0]
-  #pigeon_colors[:purple][0]
-  n = 0
-  while n < pigeons.length
-    data.each_pair do |key, value|
-      var_to_update = pigeon_details[pigeons[n]][key]
-      value.each_pair do |key, value|
-          i = 0
-          while i < value.length
-            if pigeons[n] == value[i]
-              var_to_update.push(key.to_s)
-            end
-            i += 1
-          end
+
+        if !new_hash[name][key]
+          new_hash[name][key] = []
+        end
+
+        new_hash[name][key] << new_value.to_s
+
       end
-      var_to_update.shift
-      var_to_update
     end
-    n += 1
   end
-  p pigeon_details
-  pigeon_details
+  new_hash
 end
+exit
